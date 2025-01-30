@@ -1,3 +1,5 @@
+// Three circles (see example 4-1)
+
 size(480, 120);
 int y = 60;
 int d = 80;
