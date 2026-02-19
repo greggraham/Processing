@@ -62,9 +62,9 @@ void setup() {
   ball2Y = random(height);
   ball3Y = random(height);
 
-  ball1R = random(10, 30);
-  ball2R = random(10, 30);
-  ball3R = random(10, 30);
+  ball1R = random(20, 100);
+  ball2R = random(20, 100);
+  ball3R = random(20, 100);
 
   ball1A = newAngle();
   ball2A = newAngle();
