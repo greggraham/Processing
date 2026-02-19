@@ -49,7 +49,7 @@ float newY(float oldY, float angle, float speed) {
 }
 
 boolean detectCollision(float x1, float y1, float r1, float x2, float y2, float r2) {
-  return dist(x1, y1, x2, y2) < (r1 + r2) / 2;
+  return dist(x1, y1, x2, y2) < (r1 + r2);
 }
 
 void setup() {
@@ -58,9 +58,9 @@ void setup() {
   ball2X = random(width);
   ball3X = random(width);
 
-  ball1Y = random(width);
-  ball2Y = random(width);
-  ball3Y = random(width);
+  ball1Y = random(height);
+  ball2Y = random(height);
+  ball3Y = random(height);
 
   ball1R = random(10, 30);
   ball2R = random(10, 30);
@@ -107,12 +107,12 @@ void draw() {
     ball1A = newAngle();
     ball3A = newAngle();
     ball1S = newSpeed(ball1S);
-    ball3S = newSpeed(ball2S);
+    ball3S = newSpeed(ball3S);
   }
   if (detectCollision(ball3X, ball3Y, ball3R, ball2X, ball2Y, ball2R)) {
     ball3A = newAngle();
     ball2A = newAngle();
-    ball3S = newSpeed(ball1S);
+    ball3S = newSpeed(ball3S);
     ball2S = newSpeed(ball2S);
   }
   
