@@ -6,6 +6,8 @@ float ball1Y;
 float ball2Y;
 float ball3Y;
 
+float minR = 15;
+float maxR = 50;
 float ball1R;
 float ball2R;
 float ball3R;
@@ -54,6 +56,7 @@ boolean detectCollision(float x1, float y1, float r1, float x2, float y2, float 
 
 void setup() {
   size(400, 400);
+  ellipseMode(RADIUS);
   ball1X = random(width);
   ball2X = random(width);
   ball3X = random(width);
@@ -62,9 +65,9 @@ void setup() {
   ball2Y = random(height);
   ball3Y = random(height);
 
-  ball1R = random(20, 100);
-  ball2R = random(20, 100);
-  ball3R = random(20, 100);
+  ball1R = random(minR, maxR);
+  ball2R = random(minR, maxR);
+  ball3R = random(minR, maxR);
 
   ball1A = newAngle();
   ball2A = newAngle();
