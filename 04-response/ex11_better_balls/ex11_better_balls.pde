@@ -19,10 +19,13 @@ float ball2VY;
 float ball3VX;
 float ball3VY;
 
-// Returns {vx1', vy1', vx2', vy2'} after elastic collision.
+// Output variables set by resolveCollision()
+float outVX1, outVY1, outVX2, outVY2;
+
+// Computes new velocities after elastic collision and stores them in outVX1/outVY1/outVX2/outVY2.
 // Mass is proportional to r^2 (area), so bigger balls deflect less.
-float[] elasticCollision(float x1, float y1, float r1, float vx1, float vy1,
-                          float x2, float y2, float r2, float vx2, float vy2) {
+void resolveCollision(float x1, float y1, float r1, float vx1, float vy1,
+                      float x2, float y2, float r2, float vx2, float vy2) {
   float m1 = r1 * r1;
   float m2 = r2 * r2;
   float d = dist(x1, y1, x2, y2);
@@ -33,16 +36,18 @@ float[] elasticCollision(float x1, float y1, float r1, float vx1, float vy1,
   float dvn = (vx1 - vx2) * nx + (vy1 - vy2) * ny;
 
   // Skip if balls are already separating
-  if (dvn <= 0) return new float[] {vx1, vy1, vx2, vy2};
+  if (dvn <= 0) {
+    outVX1 = vx1; outVY1 = vy1;
+    outVX2 = vx2; outVY2 = vy2;
+    return;
+  }
 
   float impulse = 2 * m1 * m2 / (m1 + m2) * dvn;
 
-  return new float[] {
-    vx1 - impulse / m1 * nx,
-    vy1 - impulse / m1 * ny,
-    vx2 + impulse / m2 * nx,
-    vy2 + impulse / m2 * ny
-  };
+  outVX1 = vx1 - impulse / m1 * nx;
+  outVY1 = vy1 - impulse / m1 * ny;
+  outVX2 = vx2 + impulse / m2 * nx;
+  outVY2 = vy2 + impulse / m2 * ny;
 }
 
 boolean detectCollision(float x1, float y1, float r1, float x2, float y2, float r2) {
@@ -118,24 +123,23 @@ void draw() {
   ball3Y = newY(ball3Y, ball3VY);
 
   // Resolve collisions
-  float[] v;
   if (detectCollision(ball1X, ball1Y, ball1R, ball2X, ball2Y, ball2R)) {
-    v = elasticCollision(ball1X, ball1Y, ball1R, ball1VX, ball1VY,
-                         ball2X, ball2Y, ball2R, ball2VX, ball2VY);
-    ball1VX = v[0]; ball1VY = v[1];
-    ball2VX = v[2]; ball2VY = v[3];
+    resolveCollision(ball1X, ball1Y, ball1R, ball1VX, ball1VY,
+                     ball2X, ball2Y, ball2R, ball2VX, ball2VY);
+    ball1VX = outVX1; ball1VY = outVY1;
+    ball2VX = outVX2; ball2VY = outVY2;
   }
   if (detectCollision(ball1X, ball1Y, ball1R, ball3X, ball3Y, ball3R)) {
-    v = elasticCollision(ball1X, ball1Y, ball1R, ball1VX, ball1VY,
-                         ball3X, ball3Y, ball3R, ball3VX, ball3VY);
-    ball1VX = v[0]; ball1VY = v[1];
-    ball3VX = v[2]; ball3VY = v[3];
+    resolveCollision(ball1X, ball1Y, ball1R, ball1VX, ball1VY,
+                     ball3X, ball3Y, ball3R, ball3VX, ball3VY);
+    ball1VX = outVX1; ball1VY = outVY1;
+    ball3VX = outVX2; ball3VY = outVY2;
   }
   if (detectCollision(ball2X, ball2Y, ball2R, ball3X, ball3Y, ball3R)) {
-    v = elasticCollision(ball2X, ball2Y, ball2R, ball2VX, ball2VY,
-                         ball3X, ball3Y, ball3R, ball3VX, ball3VY);
-    ball2VX = v[0]; ball2VY = v[1];
-    ball3VX = v[2]; ball3VY = v[3];
+    resolveCollision(ball2X, ball2Y, ball2R, ball2VX, ball2VY,
+                     ball3X, ball3Y, ball3R, ball3VX, ball3VY);
+    ball2VX = outVX1; ball2VY = outVY1;
+    ball3VX = outVX2; ball3VY = outVY2;
   }
 
 }
