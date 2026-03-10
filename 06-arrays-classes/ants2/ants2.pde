@@ -3,14 +3,8 @@
 int numAnts = 50;
 
 float[] xs = new float[numAnts];
-float a1y = 100;
-float a1angle = 0;
-float a2x = 200;
-float a2y = 200;
-float a2angle = 0;
-float a3x = 300;
-float a3y = 300;
-float a3angle = 0;
+float[] ys = new float[numAnts];
+float[] angles = new float[numAnts];
 
 float speed = 2;
 
@@ -40,35 +34,24 @@ void drawAnt(float x, float y, float a) {
 
 void setup() {
   size(600, 600);
+  for (int i = 0; i < numAnts; i++) {
+    xs[i] = random(0, width);
+    ys[i] = random(0, height);
+    angles[i] = random(-PI, PI);
+  }
 }
 
 void draw() {
   background(204);
-  drawAnt(a1x, a1y, a1angle);
-  drawAnt(a2x, a2y, a2angle);
-  drawAnt(a3x, a3y, a3angle);
+  for (int i = 0; i < numAnts; i++) {
+    drawAnt(xs[i], ys[i], angles[i]);
 
-  a1x += speed * cos(a1angle - PI/2);
-  a1y += speed * sin(a1angle - PI/2);
-  if (a1x < 0 || a1x > width || a1y < 0 || a1y > width) {
-    a1angle += PI;
-  } else {
-    a1angle += random(-0.2, 0.2);
-  }
-
-  a2x += speed * cos(a2angle - PI/2);
-  a2y += speed * sin(a2angle - PI/2);
-  if (a2x < 0 || a2x > width || a2y < 0 || a2y > width) {
-    a2angle += PI;
-  } else {
-    a2angle += random(-0.2, 0.2);
-  }
-
-  a3x += speed * cos(a3angle - PI/2);
-  a3y += speed * sin(a3angle - PI/2);
-  if (a3x < 0 || a3x > width || a3y < 0 || a3y > width) {
-    a3angle += PI;
-  } else {
-    a3angle += random(-0.2, 0.2);
+    xs[i] += speed * cos(angles[i] - PI/2);
+    ys[i] += speed * sin(angles[i] - PI/2);
+    if (xs[i] < 0 || xs[i] > width || ys[i] < 0 || ys[i] > width) {
+      angles[i] += PI;
+    } else {
+      angles[i] += random(-0.2, 0.2);
+    }
   }
 }
