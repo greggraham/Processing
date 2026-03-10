@@ -1,8 +1,6 @@
-// Ants phase 2, by Mr. Graham
+// Ants phase 1, by Mr. Graham
 
-int numAnts = 50;
-
-float[] xs = new float[numAnts];
+float a1x = 100;
 float a1y = 100;
 float a1angle = 0;
 float a2x = 200;
