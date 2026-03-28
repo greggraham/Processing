@@ -1,4 +1,4 @@
-// Ex 10-2
+// Bouncers
 
 int numBs = 200;
 float speedRange = 3;
