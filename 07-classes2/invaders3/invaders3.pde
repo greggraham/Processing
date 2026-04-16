@@ -20,6 +20,7 @@ void setup() {
     aliens[i] = new Ufo(ufoImg);
   }
   font = loadFont("BritannicBold-48.vlw");
+  frameRate(3);
 }
 
 void draw() {
@@ -41,9 +42,13 @@ void draw() {
     // move ufos
     int aliveCount = 0;
     for (int i = 0; i < numAliens; i++) {
-      if (aliens[i].alive) {
+      Ufo enemy = aliens[i];
+      if (enemy.alive && ship.hit(enemy)) {
+        enemy.alive = false;
+      }
+      if (enemy.alive) {
         aliveCount++;
-        aliens[i].move();
+        enemy.move();
       }
     }
     if (aliveCount <= 0) {

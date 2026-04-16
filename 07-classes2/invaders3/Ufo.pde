@@ -32,4 +32,8 @@ class Ufo {
       image(img, x, y);
     }
   }
+  
+  BoundingBox bbox() {
+    return new BoundingBox(x, x + img.width, y, y + img.height);
+  }
 }
