@@ -1,3 +1,7 @@
+// This class is used for collision detection. The objects to be checked
+// create bounding boxes based on their position and size, and this checks
+// to see if they intersect.
+
 class BoundingBox {
   float x1;
   float x2;

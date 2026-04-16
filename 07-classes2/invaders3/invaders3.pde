@@ -20,7 +20,6 @@ void setup() {
     aliens[i] = new Ufo(ufoImg);
   }
   font = loadFont("BritannicBold-48.vlw");
-  frameRate(3);
 }
 
 void draw() {
@@ -39,18 +38,24 @@ void draw() {
     // move ship
     ship.move();
 
-    // move ufos
+    // process the ufos
     int aliveCount = 0;
     for (int i = 0; i < numAliens; i++) {
       Ufo enemy = aliens[i];
+      
+      // check for missile hits
       if (enemy.alive && ship.hit(enemy)) {
         enemy.alive = false;
       }
+      
+      // move the ufo if alive
       if (enemy.alive) {
         aliveCount++;
         enemy.move();
       }
     }
+    
+    // see if game is over
     if (aliveCount <= 0) {
       finished = true;
     }
