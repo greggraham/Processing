@@ -34,8 +34,9 @@ void draw() {
     textFont(font);
     text("Game Over", 209, 204);
   } else {
-    // draw ship
-    ship.render();
+    
+    // move ship
+    ship.move();
 
     // move ufos
     int aliveCount = 0;
@@ -49,31 +50,20 @@ void draw() {
       finished = true;
     }
 
+    // draw ship
+    ship.render();
+
     // draw ufos
     for (int i = 0; i < numAliens; i++) {
       aliens[i].render();
     }
     
-    // draw laser
-    if (laserTime > 0) {
-      strokeWeight(5);
-      stroke(255, 0, 0);
-      line(mouseX, 335, mouseX, 0);
-      
-      // check for collisions
-      for (int i = 0; i < numAliens; i++) {
-        if (abs(aliens[i].x - mouseX) < 16) {
-          aliens[i].alive = false;
-        }
-      }
-      laserTime--;
-    }
   }
 }
 
 
 void mousePressed() {
   if (!finished) {
-    laserTime = 5;
+    ship.launch();
   }
 }
