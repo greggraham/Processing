@@ -1,9 +1,8 @@
-// Invaders for Processing Java, version 2
+// Invaders with methods
 // by Mr. Graham
 
 PImage bg;
 PImage shipImg;
-PImage ufoImg;
 int numAliens = 8;
 Ufo aliens[];
 boolean finished = false;
@@ -14,15 +13,9 @@ void setup() {
   size(639, 426);
   bg = loadImage("stars.jpg");
   shipImg = loadImage("ship.png");
-  ufoImg = loadImage("saucer.png");
   aliens = new Ufo[numAliens];
   for (int i = 0; i < numAliens; i++) {
     aliens[i] = new Ufo();
-    aliens[i].x = random(width);
-    aliens[i].dx = random(4) + 1;
-    aliens[i].y = random(height / 3);
-    aliens[i].dy = random(2);
-    aliens[i].alive = true;
   }
   font = loadFont("BritannicBold-48.vlw");
 }
@@ -47,14 +40,7 @@ void draw() {
     for (int i = 0; i < numAliens; i++) {
       if (aliens[i].alive) {
         aliveCount++;
-        aliens[i].x += aliens[i].dx;
-        if (aliens[i].x < 0 || aliens[i].x > width) {
-          aliens[i].dx = -aliens[i].dx;
-        }
-        aliens[i].y += aliens[i].dy;
-        if (aliens[i].y < 0 || aliens[i].y > height/2) {
-          aliens[i].dy = -aliens[i].dy;
-        }
+        aliens[i].update();
       }
     }
     if (aliveCount <= 0) {
@@ -64,7 +50,7 @@ void draw() {
     // draw ufos
     for (int i = 0; i < numAliens; i++) {
       if (aliens[i].alive) {
-        image(ufoImg, aliens[i].x, aliens[i].y);
+        aliens[i].render();
       }
     }
     
