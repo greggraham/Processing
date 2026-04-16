@@ -1,4 +1,4 @@
-// Invaders for Processing Java, version 2
+// Invaders for Processing Java, version 3
 // by Mr. Graham
 
 PImage bg;
@@ -13,7 +13,7 @@ void setup() {
   size(639, 426);
   bg = loadImage("stars.jpg");
   PImage shipImg = loadImage("ship.png");
-  PImage ufoImg = loadImage("saucer.png"); 
+  PImage ufoImg = loadImage("saucer.png");
   ship = new Ship(shipImg);
   aliens = new Ufo[numAliens];
   for (int i = 0; i < numAliens; i++) {
@@ -26,7 +26,7 @@ void draw() {
   background(0);
   imageMode(CORNER);
   image(bg, 0, 0);
-  
+
   imageMode(CENTER);
   if (finished && laserTime == 0) {
     // game over screen
@@ -34,7 +34,7 @@ void draw() {
     textFont(font);
     text("Game Over", 209, 204);
   } else {
-    
+
     // move ship
     ship.move();
 
@@ -57,7 +57,6 @@ void draw() {
     for (int i = 0; i < numAliens; i++) {
       aliens[i].render();
     }
-    
   }
 }
 

@@ -17,10 +17,16 @@ class Ship {
   
   void move() {
     xPos = mouseX;
+    for (int i = 0; i < numMissiles; i++) {
+      missiles[i].move();
+    }
   }
   
   void render() {
     image(img, xPos, yPos);
+     for (int i = 0; i < numMissiles; i++) {
+      missiles[i].render();
+    }   
   }
   
   void launch() {

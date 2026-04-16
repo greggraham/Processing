@@ -1,22 +1,28 @@
 class Missile {
   
+  float missileWidth = 4;
+  float missileHeight = 7;
   float x = 0;
   float y = 0;
-  float speed = 2;
+  float speed = 5;
   boolean alive = false;
   
   void move() {
     if (alive) {
       y -= speed;
+      if (y < -missileHeight) {
+        alive = false;
+      }
     }
   }
   
   void render() {
     if (alive) {
       ellipseMode(CENTER);
-      stroke(255, 0, 0);
-      fill(255, 0, 0);
-      ellipse(x, y, 2, 3);
+      fill(255, 94, 54);
+      strokeWeight(1);
+      stroke(255, 51, 0);
+      ellipse(x, y, missileWidth, missileHeight);
     }
   }
   
