@@ -57,6 +57,13 @@ void keyPressed() {
     if (bx > maxX) {
       bx = maxX;
     }
+  } else if (key == ' ') {
+    if (moving == square) {
+      moving = bar;
+      moving.randomSpin();
+    } else if (moving == bar) {
+      moving = square;
+    }
   } else if (key == CODED) {
     if (keyCode == LEFT) {
       moving.rotateLeft();
